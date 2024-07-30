@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8">
+<title>David Stenlund – Resources</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="styles.css">
+
+</head>
+
+<body>
+<div class="header" >
+  <div style="width: 60px; height: 60px;"></div>
+</div>
+
+<div class="content" style="margin-bottom:4cm;">
+
+<ul class="topnav" id="myTopnav">
+  <a href="index.html">Home</a>
+  <a href="research.html">Research</a>
+  <a href="teaching.html">Teaching</a>
+  <a href="cv.html">CV</a>
+  <a href="sudoku.html">Sudoku</a>
+  <a class="active" href="resources.html">Resources</a>
+  <a href="javascript:void(0);" class="icon" onclick="myMenuList()">
+    <i class="fa fa-bars"></i>
+  </a>
+</ul>
+
+<div class="pagecolumns">
+  <div class="pictcolumn">
+    <center><img class="mainPagePhoto" src="images/david-stenlund-moraine-lake.jpg" alt="At Moraine Lake in the Canadian Rockies"></center>
+  </div>
+
+  <div class="textcolumn">
+    <h1 style="text-align: center"> Resources </h1>
+    <h3 style="text-align: center">JavaScript simulations</h3>
+    <p> 
+      <a href="simulations/chaosgame.html">Chaos Game</a>
+      <br><br>
+<!--      <a href="simulations/mabinogionsim.html">Mabinogion urn model</a> -->
+    </p>
+
+    <h3 style="text-align: center"> Links </h3>
+    <p> 
+      <a href="https://www.math.ubc.ca">UBC Department of Mathematics</a>
+      <br><br>
+      <a href="https://secure.math.ubc.ca/Links/Probability/">UBC Probability</a>
+      <br><br>
+      <a href="https://oeis.org">Online Encyclopedia of Integer Sequences</a>
+      <br><br>
+      <a href="https://sites.google.com/view/sadestenlund">Säde Stenlund – Happiness Physician</a>
+      <br><br>
+      <a href="https://rinkkajarakas.wordpress.com">Rinkka ja Rakas (travel blog from some years back)</a>
+      <br><br>
+      <a href="https://www.knitnita.com/matematikertrojan/">Knitted math sweater (Knitnita Design)</a>
+    </p>
+  </div>
+</div>
+
+</div>
+
+<footer>
+Website &copy; David Stenlund. Photos &copy; Säde Stenlund. 
+</footer>
+
+<script>
+function myMenuList() {
+  const x = document.getElementById("myTopnav");
+  if (x.className === "topnav") {
+    x.className += " responsive";
+  } else {
+    x.className = "topnav";
+  }
+}
+</script>
+
+</body>
+</html>

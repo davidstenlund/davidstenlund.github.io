@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1", initial-scale=1">
+<meta charset="UTF-8">
+<title>David Stenlund</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="styles.css">
+
+</head>
+
+<body>
+<div class="header" >
+  <div style="width: 60px; height: 60px;"></div>
+</div>
+
+<div class="content" style="margin-bottom:3cm;">
+
+<ul class="topnav" id="myTopnav">
+  <a class="active" href="index.html">Home</a>
+  <a href="research.html">Research</a>
+  <a href="teaching.html">Teaching</a>
+  <a href="cv.html">CV</a>
+  <a href="sudoku.html">Sudoku</a>
+  <a href="resources.html">Resources</a>
+  <a href="javascript:void(0);" class="icon" onclick="myMenuList()">
+    <i class="fa fa-bars"></i>
+  </a>
+</ul>
+
+<div class="pagecolumns">
+  <div class="pictcolumn">
+    <center><img class="mainPagePhoto" src="images/david-stenlund-profile.jpg" alt="David Stenlund"></center>
+  </div>
+
+  <div class="textcolumn">
+    <h1 style="text-align: center"> David Stenlund </h1>
+    <p> 
+Postdoctoral Researcher in Mathematics <br>
+<br>
+
+Email:  <a href="mailto:stenlund@math.ubc.ca">stenlund@math.ubc.ca</a>
+    </p>
+  </div>
+</div>
+
+
+<a href="https://orcid.org/0000-0002-4697-8245">
+<img alt="ORCID" src="https://info.orcid.org/wp-content/uploads/2019/11/orcid_24x24.png" width="20" height="20" style="vertical-align:middle;"> 
+https://orcid.org/0000-0002-4697-8245
+</a>
+<br><br>
+<a href="https://www.linkedin.com/in/david-stenlund/">
+<img alt="LinkedIn" src="images/linkedin-icon.png" width="24" height="20" style="vertical-align:middle;"> 
+linkedin.com/in/david-stenlund
+</a>
+<br><br>
+<a href="https://www.instagram.com/david.stenlund/">
+<img alt="Instagram" src="images/instagram-icon.png" width="20" height="20" style="vertical-align:middle;"> 
+@david.stenlund
+</a>
+
+</div>
+
+<footer>
+Website &copy; David Stenlund. Photos &copy; Säde Stenlund. 
+</footer>
+
+<script>
+function myMenuList() {
+  const x = document.getElementById("myTopnav");
+  if (x.className === "topnav") {
+    x.className += " responsive";
+  } else {
+    x.className = "topnav";
+  }
+}
+</script>
+
+</body>
+</html>

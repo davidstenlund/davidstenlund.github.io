@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8">
+<title>David Stenlund – Teaching</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="simulationstyles.css">
+
+</head>
+
+<body>
+<div class="header" >
+  <div style="width: 60px; height: 60px;"></div>
+</div>
+
+<div class="content">
+
+<ul class="topnav" id="myTopnav">
+  <a href="../index.html">Home</a>
+  <a href="../research.html">Research</a>
+  <a href="../teaching.html">Teaching</a>
+  <a href="../cv.html">CV</a>
+  <a href="../sudoku.html">Sudoku</a>
+  <a href="../resources.html">Resources</a>
+  <a href="javascript:void(0);" class="icon" onclick="myMenuList()">
+    <i class="fa fa-bars"></i>
+  </a>
+</ul>
+
+
+<h1 style="text-align: center"> Chaos Game Simulation </h1>
+
+<p>The Chaos Game is a method for generating a fractal through a random process. You start with a polygon with <i>N</i> sides and a randomly selected initial point. At each step of the process, one corner of the polygon is selected uniformly at random and a new dot is added at a specific fraction <i>r</i> of the distance to that corner. After a large number of steps, and with a suitable value of <i>r</i>, the dots form a fractal pattern within the polygon. </p>
+
+<p>When <i>r</i> is large enough, there will be an area in the center of the polygon that eventually will never be reached by the process (except maybe in the first few steps, depending on the initial point). If that area cannot be reached, it means that a similarly shaped, smaller area partway to each corner of the polygon also cannot be reached. And then there are even smaller areas partway from there, and so on. This leads to the fractal pattern that emerges after the process has gone on for a long while. </p>
+
+<p>For a triangle with <i>r</i>&nbsp;=&nbsp;0.5, the process converges to the famous Sierpinski triangle. </p>
+
+<br><br>
+<div class="gameContainer">
+
+<canvas id="simCanvas" width="450" height="450" style="border:1px solid grey"></canvas>
+<br><br>
+<button class="gameButton" id="startButton" onclick="startSim()">Start</button>
+<button class="gameButton" id="resetButton" onclick="resetSim()">Reset</button>
+<button class="gameButton" id="resetButton" onclick="nextPoint()">One step</button>
+<br>
+<p>
+  Polygon (number of vertices): &ensp;
+  <span id="polyField"></span>
+</p>
+<input id="polySlider" style="width: 40%" type="range" min="3" max="9" value="3">
+<span id="polyField"></span>
+<br>
+<p>
+  Ratio <i>r</i> &nbsp;=&nbsp;
+  <span id="ratioField"></span>
+</p>
+<input id="ratioSlider" style="width: 40%" type="range" min="0.25" max="0.99" step="0.01" value="0.5">
+<br>
+<p>
+  Simulation speed
+</p>
+<input id="speedSlider" style="width: 40%" type="range" min="1" max="9" value="5">
+<p>
+  Size of plotted points: 
+  <select id="sizeOptions">
+    <option value="tiny">Tiny</option>
+    <option value="medium" selected>Medium</option>
+    <option value="large">Large</option>
+  </select>
+</p>
+
+</div> 
+
+
+
+<script>
+
+function myMenuList() {
+  const x = document.getElementById("myTopnav");
+  if (x.className === "topnav") {
+    x.className += " responsive";
+  } else {
+    x.className = "topnav";
+  }
+}
+
+// Declare variables 
+var running = false; 
+var polygon = 3; 
+var speed = 4; 
+var ratio = 0.5; 
+var steps = 40000; 
+var step = 0; 
+var dotsize = 2;
+const ubcblue = "#0055B7";  // From UBC colour palette
+
+const canvas = document.getElementById("simCanvas");
+const ctx = canvas.getContext("2d");
+ctx.fillStyle = "#FF0000";
+ctx.transform(1, 0, 0, -1, 0, canvas.height);
+
+const speedslider = document.getElementById("speedSlider"); 
+const ratioslider = document.getElementById("ratioSlider"); 
+const polyslider = document.getElementById("polySlider"); 
+const ratioField = document.getElementById("ratioField"); 
+const polyField = document.getElementById("polyField"); 
+const sizeoptions = document.getElementById("sizeOptions"); 
+
+var x0 = canvas.height/2;
+var y0 = canvas.width/2;
+var xArray = [x0];
+var yArray = [1.9*y0];
+var pointPlotting = 0;
+
+ratioField.innerHTML = ratio; 
+polyField.innerHTML = polygon; 
+
+// Draw a polygon (triangle) at start
+formPolygon(polygon);
+
+// Functions for changing values on the sliders
+speedslider.oninput = function() {
+  speed = this.value;
+  clearInterval(pointPlotting);
+  if (running) {
+    if (speed < 5) {
+      pointPlotting = setInterval(nextPoint, (5 - speed)*350);
+    } else {
+      pointPlotting = setInterval(nextPoint, (9 - speed)*40);
+    }
+  }
+}
+
+ratioslider.oninput = function() {
+  ratio = this.value;
+  ratioField.innerHTML = ratio;
+  resetSim();
+}
+
+polyslider.oninput = function() {
+  polygon = this.value; 
+  polyField.innerHTML = polygon;
+  resetSim();
+}
+
+sizeoptions.oninput = function() {
+  switch(this.value) {
+    case "tiny":
+      dotsize = 1;
+      break; 
+    case "medium":
+      dotsize = 2;
+      break; 
+    case "large":
+      dotsize = 5;
+      break; 
+    default:
+      break;
+  } 
+  resetSim();
+}
+
+// Function for clearing the plot
+function emptyCanvas() {
+  ctx.setTransform(1, 0, 0, 1, 0, 0);
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.transform(1, 0, 0, -1, 0, canvas.height)
+  ctx.beginPath();
+}
+
+// Plot polygon
+function formPolygon(polygon) {
+  xArray.length = 0;
+  yArray.length = 0;
+  xArray.push(x0); 
+  yArray.push(1.9*y0); 
+  for (let i = 1; i < polygon+1; i++) {
+    let newx = Math.sin(2 * Math.PI * i/polygon)*0.9*x0 + x0
+    let newy = Math.cos(2 * Math.PI * i/polygon)*0.9*y0 + y0
+    ctx.moveTo(xArray.at(-1), yArray.at(-1));
+    ctx.lineTo(newx, newy);
+    ctx.strokeStyle = "gray";
+    ctx.stroke();
+
+    xArray.push(newx); 
+    yArray.push(newy); 
+  }
+}
+
+// Determine starting point randomly within the polygon
+let x = Math.random();
+let theta = Math.random();
+let phi = 2 * Math.PI * (theta % (1 / polygon)) - (Math.PI / polygon);
+let r = x * Math.cos(Math.PI / polygon) / Math.cos(phi);
+let newx = r*Math.sin(theta * 2 * Math.PI) + x0;
+let newy = r*Math.cos(theta * 2 * Math.PI) + y0;
+
+function startSim() {
+  if (!running) {  // Start plotting points
+    running = true; 
+    if (speed < 5) {
+      pointPlotting = setInterval(nextPoint, (5 - speed)*350);
+    } else {
+      pointPlotting = setInterval(nextPoint, (9 - speed)*40);
+    }
+    document.getElementById("startButton").innerHTML = "Pause";
+  } else {  // Pause plotting
+    running = false; 
+    clearInterval(pointPlotting);
+    document.getElementById("startButton").innerHTML = "Start";
+  }
+}
+
+function resetSim() {
+  running = false; 
+  clearInterval(pointPlotting);
+  document.getElementById("startButton").innerHTML = "Start";
+  emptyCanvas();
+  formPolygon(polygon);
+  step = 0;
+}
+
+// Plot next point
+function nextPoint() {
+  if (step < steps) {
+    ctx.fillStyle = ubcblue;
+    ctx.fill();
+    let m = Math.floor(Math.random() * polygon);
+    newx += ratio * (xArray.at(m) - newx)
+    newy += ratio * (yArray.at(m) - newy)
+    ctx.fillStyle = "red";
+    ctx.beginPath();
+    ctx.ellipse(newx, newy, dotsize, dotsize, 0, 0, Math.PI * 2);
+    ctx.fill();
+    step += 1; 
+  } else {
+    ctx.fillStyle = ubcblue;
+    ctx.fill();
+    clearInterval(pointPlotting);
+  }
+}
+
+
+</script>
+
+</body>
+</html>

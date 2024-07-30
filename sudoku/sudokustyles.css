@@ -1,0 +1,171 @@
+.gameContainer {
+//  font-family: Arial, Verdana, sans-serif;  
+  margin: 0 auto;
+  text-align: center;
+  padding: 0px;
+}
+
+.sudokuArea {
+  font-size: 20px;
+  display: inline-grid;
+  grid-template-columns: 40px 40px 40px 40px 40px 40px 40px 40px 40px;
+  grid-template-rows: 40px 40px 40px 40px 40px 40px 40px 40px 40px;
+  padding: 0px;
+  gap: 0px;
+  border-style: solid;
+  border-width: 2px;
+  cursor: pointer;
+  margin: 20px 0px 30px;
+}
+
+.sudokuArea:hover {
+  cursor: pointer;
+}
+
+.cell {
+  color: #0055B7;   // From UBC colour palette
+  // color: #0055B7;   // From UBC colour palette
+  font-weight: normal;
+  text-align: center;
+  padding: 8px;
+  border: 0.5px solid black;
+  // Disable text selection in grid
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.givenValue {
+  color: black;
+//  font-weight: bold;
+}
+
+.selected {
+  background-color: #97D4E9;
+}
+
+.digitButton {
+  width: 35px;
+  height: 35px;
+  border-radius: 6px;
+  margin: 1px;
+  border: 1.5px solid #cccccc;
+  background-color: white;
+  color: black;
+  text-align: center;
+  font-family: inherit;
+  font-size: 14px;
+  padding: 0px;
+}
+
+.digitButton:active{
+  background-color: #eeeeee;
+}
+
+.gameButton {
+  width: 80px;
+  border-radius: 8px;
+  margin: 3px;
+  padding: 8px;
+  border: 1.5px solid #cccccc;
+  background-color: white;
+  color: black;
+  text-align: center;
+  font-family: inherit;
+  font-size: 12px;
+}
+
+.defaultButton {
+  border: 1.5px solid #0055B7;
+}
+
+.gameButton:active{
+  background-color: #eeeeee;
+}
+
+.popupBox {
+  display: none;
+  z-value: 10000;
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.popupBox.open {
+  display: block;
+}
+
+.popupBody {
+  font-size: 14px;
+  text-align: left;
+  box-sizing: border-box;
+  position: absolute;
+  width: 300px;
+  min-height: 300px;
+  left: 50%;
+  top: 50%; 
+  transform: translate(-50%, 0);
+  padding: 20px;
+  background-color: white;
+}
+
+.popupBody h4 {
+  margin: 5px 0px; 
+  text-align: center;
+}
+
+body.popupActive {
+  overflow: hidden;
+}
+
+.popupButtons {
+  position: absolute;
+  display: inline;
+  width: 300px;
+  bottom: 20px;
+  left: 150px;
+  transform: translate(-50%, 0);
+  text-align: center;
+}
+
+@media screen and (max-width: 400px) {
+  .sudokuArea {
+    width: 90vw;
+    grid-template-columns: 10vw 10vw 10vw 10vw 10vw 10vw 10vw 10vw 10vw;
+    grid-template-rows: 10vw 10vw 10vw 10vw 10vw 10vw 10vw 10vw 10vw;
+    margin: 5vw 0vw 7.5vw;
+  }
+  .cell {
+    padding: 2vw 0;
+    font-size: 5vw;
+  }
+  .digitButton {
+    width: 8.5vw;
+    height: 8.5vw;
+    margin: 0.2vw;
+    border-radius: 1.5vw;
+    font-size: 4vw;
+  }
+  .gameButton {
+    width: 20vw;
+    border-radius: 2vw;
+    margin: 1vw;
+    padding: 2vw;
+    font-size: 3vw;
+  }
+  .popupBody {
+    width: 75vw;
+    min-height: 75vw;
+    font-size: 3.5vw;
+    padding: 5vw;
+  }
+  .popupButtons {
+    width: 75vw;
+    bottom: 5vw;
+    left: 37.5vw;
+    transform: translate(-50%, 0);
+  }
+}

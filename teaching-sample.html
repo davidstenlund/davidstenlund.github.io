@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8">
+<title>David Stenlund – Teaching</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="styles.css">
+
+</head>
+
+<body>
+<div class="header" >
+  <div style="width: 60px; height: 60px;"></div>
+</div>
+
+<div class="content">
+
+<ul class="topnav" id="myTopnav">
+  <a href="index.html">Home</a>
+  <a href="research.html">Research</a>
+  <a href="teaching.html">Teaching</a>
+  <a href="cv.html">CV</a>
+  <a href="sudoku.html">Sudoku</a>
+  <a href="resources.html">Resources</a>
+  <a href="javascript:void(0);" class="icon" onclick="myMenuList()">
+    <i class="fa fa-bars"></i>
+  </a>
+</ul>
+
+
+<h1 style="text-align: center"> Sample course material </h1>
+
+<p>
+The material below provides a snapshot from the course MATH 307 &ndash; Applied Linear Algebra, which I have taught a total of four times at UBC during 2021&ndash;2023. 
+</p>
+
+<h3> 1. Sample lecture plan</h3>
+
+<p>These are <a href="files/math307-lecture-plan.pdf">my handwritten notes</a> with preparations for a 75 min lecture on the Discrete Fourier Transform (DFT). In the lecture plan I would typically write down some questions for my students, and here I have also indicated the estimated time needed to go over the material, so that I can better keep track of the time and adjust the pacing if needed. 
+
+
+<h3> 2. Video recording from actual lecture</h3>
+
+<video width="400" height="300" controls>
+  <source src="files/DFT-lecture.mp4" type="video/mp4">
+It seems that your browser does not support the video tag.
+</video>
+
+<p> 
+This is a video recording of part of the lecture (ca. 10 min), including a demonstration of filtering out certain frequencies from a digital sound recording.  </p>
+
+<h3> 3. Lecture notes</h3>
+
+<p> The <a href="files/math307-lecture-notes.pdf">lecture notes</a> are always scanned and uploaded to the course webpage after the lecture. In this case, the final page was rather hastily sketched during the lecture, and therefore I rewrote that page a bit neater before scanning the notes. 
+</p>
+
+<h3> 4. Python example</h3>
+
+<p> A <a href="files/jupyter/DFT-print.pdf">Jupyter notebook</a> was used during the lecture to illustrate how to compute the DFT using Python. 
+</p>
+
+
+
+</div>
+
+<footer>
+Website &copy; David Stenlund. Photos &copy; Säde Stenlund. 
+</footer>
+
+<script>
+function myMenuList() {
+  const x = document.getElementById("myTopnav");
+  if (x.className === "topnav") {
+    x.className += " responsive";
+  } else {
+    x.className = "topnav";
+  }
+}
+</script>
+
+</body>
+</html>

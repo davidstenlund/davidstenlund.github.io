@@ -1,0 +1,181 @@
+html {
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
+.header {
+  background-color: #002145;
+  color: white;
+  margin:0px;
+  padding:0px;
+}
+
+footer {
+  text-align: center;
+  font-size: 10px;
+  padding-top: 25px;
+  color: #cccccc;
+}
+
+a {
+  color: #0055B7;
+  background-color: transparent;
+  text-decoration: none;
+}
+
+a:visited {
+  color: #00A7E1;
+  background-color: transparent;
+  text-decoration: none;
+}
+
+.topnav {
+  display: flex;   
+  justify-content: center; 
+  list-style-type: none;
+  margin: 0;
+  margin-bottom: 15px;
+  padding: 0;
+  overflow: hidden;
+  background-color: white;
+}
+
+.topnav a {
+  display: block;
+  color: black;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  width: 90px;
+}
+
+.topnav a:hover {
+  background-color: #eeeeee;
+}
+
+.topnav a.active {
+  color: red;
+}
+
+.topnav .icon {
+  display: none;
+}
+
+body {
+   padding-bottom: 60px;
+   margin:0;
+   font-family: Arial, Verdana, sans-serif;
+}
+
+.content {
+  max-width: 900px;
+  margin: auto;
+  background: white;
+  padding: 10px;
+}
+
+li:not(:last-child) {
+    margin-bottom: 12px;
+}
+
+td {
+  vertical-align: top;
+  padding: 6px;
+}
+
+.textcolumn {
+  width: 45%;
+  float: left;
+}
+
+.pictcolumn {
+  width: 50%;
+  float: right;
+}
+
+.mainPagePhoto {
+  display: block;
+  width: 450px;
+  height: 300px;
+}
+
+.pagecolumns:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.hiddenbox {
+  width: 100%;
+  padding: 10px 10px;
+  text-align: left;
+  background-color: #eeeeee;
+  margin-top: 10px;
+  display: none;
+}
+
+.sudokuPattern {
+  width: 80px;
+  height: 80px;
+  margin: 8px;
+}
+
+.selectedPattern {
+  outline: thick solid #00A7E1;  // From UBC colour palette
+}
+
+@media screen and (max-width: 750px) {
+  .topnav {
+    display: block;
+  }
+  .topnav a:first-child {
+    float: left;
+    text-align: left;
+  }
+  .topnav a:not(:first-child) {
+    display: none;
+  }
+  .topnav a.icon {
+    float: right;
+    display: block;
+    width: 40px;
+  }
+  .topnav.responsive {
+    position: relative;
+  }
+  .topnav.responsive .icon {
+    position: absolute;
+    right: 0;
+    top: 0;
+    text-align: center;
+    width: 40px;
+  }
+  .topnav.responsive a {
+    float: none;
+    display: block;
+    text-align: left;
+    width: 100%;
+  }
+  .content, .pagecolumn, .textcolumn, .pictcolumn {
+    width: 95%;
+  }
+  .sudokuPattern {
+    width: 15vw;
+    max-width: 80px;
+    height: 15vw;
+    max-height: 80px;
+    margin: 1vw;
+  }
+  td {
+    padding: 1.5vw;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .mainPagePhoto {
+    width: 95%;
+    margin: 0px;
+    padding: 0px;
+    height: auto;
+  }
+}

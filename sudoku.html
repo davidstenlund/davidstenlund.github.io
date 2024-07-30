@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8">
+<title>David Stenlund – Sudoku</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> 
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="sudoku/sudokustyles.css">
+
+</head>
+
+<body>
+<div class="header" >
+  <div style="width: 60px; height: 60px;"></div>
+</div>
+
+<div class="content">
+
+<ul class="topnav" id="myTopnav">
+  <a href="index.html">Home</a>
+  <a href="research.html">Research</a>
+  <a href="teaching.html">Teaching</a>
+  <a href="cv.html">CV</a>
+  <a class="active" href="sudoku.html">Sudoku</a>
+  <a href="resources.html">Resources</a>
+  <a href="javascript:void(0);" class="icon" onclick="myMenuList()">
+    <i class="fa fa-bars"></i>
+  </a>
+</ul>
+
+<div class="pagecolumns">
+  <div class="pictcolumn">
+    <center><img class="mainPagePhoto" src="images/david-stenlund-solving-sudoku.jpg" alt="Solving a sudoku by the lake." width="450" height="300"></center>
+  </div>
+
+  <div class="textcolumn">
+    <h1 style="text-align: center"> Sudoku </h1>
+    <p> 
+Sudoku has been a hobby of mine since I first discovered these puzzles back in upper secondary school. I soon began to solve sudoku puzzles on a regular basis and also time myself while doing so. In 2005, I took part in the open Nordic Sudoku Championship, where I managed to claim the top spot. Although I am not doing it as frequently anymore, I still enjoy solving a sudoku now and then. 
+    </p>
+    <p>
+Over the years, I have not only solved sudoku puzzles but also constructed a number of them myself. You can solve these handmade puzzles in the grid below. 
+    </p>
+  </div>
+</div>
+
+
+<h3>Instructions</h3>
+
+<p>
+The rules of sudoku are pretty simple. The numbers 1–9 shall be placed in the 9&times;9 grid so that each number is found exactly once in each row, column, and 3&times;3 block. Using the clues that are filled in from the beginning, the (unique) solution can be determined by logic and reasoning alone.  
+</p>
+
+  <!--  Here is the sudoku game  -->
+  <div class="gameContainer">
+    <button class="gameButton" id="buttonCheck">Check!</button>
+    <button class="gameButton" id="buttonNew">New game</button>
+    <button class="gameButton" id="buttonSave">Save game</button>
+    <button class="gameButton" id="buttonPause">Pause</button>
+    <br>
+    <div class="sudokuArea" id="theGrid"></div>
+    <br>
+    <button class="digitButton" id="button1">1</button>
+    <button class="digitButton" id="button2">2</button>
+    <button class="digitButton" id="button3">3</button>
+    <button class="digitButton" id="button4">4</button>
+    <button class="digitButton" id="button5">5</button>
+    <button class="digitButton" id="button6">6</button>
+    <button class="digitButton" id="button7">7</button>
+    <button class="digitButton" id="button8">8</button>
+    <button class="digitButton" id="button9">9</button>
+    <br><br>
+    <button class="gameButton" id="buttonClear">Clear</button>
+
+    <!--  Popup box for "Check" button  -->
+    <div class="popupBox" id="popupCheck">
+      <div class="popupBody" id="popupCheckBody">
+        <h4>Game progress</h4>
+        <p id="checkMessage"></p>
+        <div class="popupButtons">
+          <button class="gameButton defaultButton" id="buttonClose1">Close</button>
+        </div>
+      </div>
+    </div>
+
+    <!--  Popup box for "New game" button  -->
+    <div class="popupBox" id="popupNewGame">
+      <div class="popupBody" id="popupNewGameBody">
+        <h4>New sudoku game</h4>
+        <form action="">
+        <input type="radio" id="radioRandom" name="newgameRadio" checked>
+        <label for="radioRandom">Random sudoku</label><br>
+        <input type="radio" id="radioPuzzle" name="newgameRadio" >
+        <label for="radioPuzzle">Select sudoku by puzzle number</label><br>
+        <input type="radio" id="radioSaved" name="newgameRadio" >
+        <label for="radioSaved">Continue saved game</label>
+        </form>
+        <div id="fieldPuzzle" style="display: none;">
+          <p>
+            Puzzle number: &nbsp;
+            <input style="width: 35%;" id="inputPuzzle">
+          </p>
+          <p id="wrongPuzzleNumber">&nbsp;</p>
+        </div>
+        <div id="fieldSaved" style="display: none;">
+          <p>Enter the saved line of digits here: </p>
+          <input style="width: 100%;" id="inputSaved">
+          <p id="wrongSavedNumber">&nbsp;</p>
+        </div>
+        <div class="popupButtons">
+          <button class="gameButton" id="buttonClose2">Cancel</button>
+          <button class="gameButton defaultButton" id="buttonPopupNewGame">New game</button>
+        </div>
+      </div>
+    </div>
+
+    <!--  Popup box for "Save game" button  -->
+    <div class="popupBox" id="popupSave">
+      <div class="popupBody" id="popupSaveBody">
+        <h4>Save game</h4>
+        <p id="saveMessage"></p>
+        <div class="popupButtons">
+          <button class="gameButton defaultButton" id="buttonClose3">Close</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+<h4>Game controls</h4>
+
+<p>Click on one of the cells to select it (hold down shift to select more than one). Then type in a number or click on one of the number buttons below the grid to enter that number in the selected cell. </p>
+<table>
+  <tr>
+  <td style="width: 100px">Check: </td>
+  <td>Click here to check your current progress and know if there are any errors. After completing the sudoku, click this button to stop the timer and display your final time. </td>
+  </tr>
+  <tr>
+  <td>New game:</td>
+  <td>For a new sudoku game, you have three options. You can solve a randomly selected sudoku, you can enter a puzzle number to solve a specific sudoku, or you can continue a saved game (see below). </td>
+  </tr>
+  <tr>
+  <td>Save game:</td>
+  <td>This will display the puzzle number, so that you can find the same sudoku later. You are also given a string of numbers that contains information on your current progress. Copy this string and save it somewhere for later. To continue the sudoku, you paste this exact string in the third "new game" option. </td>
+  </tr>
+  <tr>
+  <td>Pause:</td>
+  <td>Click here to pause the game. This will temporarily stop the timer and also hide the sudoku board from view. Click the same button again ("Resume") to continue solving. </td>
+  </tr>
+</table>
+
+<h4>A few notes on the design</h4>
+
+<p>Sudoku puzzles come in varying levels of difficulty. Although the difficulty is somewhat subjective, harder puzzles generally require more complicated techniques in order to reach the solution without guessing. There are a lot of websites that explain various sudoku solving techniques. Unfortunately, my own sudoku puzzles have no difficulty ratings. I usually try to make them quite tricky, but they often end up a bit easier than intended, so I suppose most are of easy or medium difficulty. </p>
+
+<p>Classical sudoku puzzles typically have a 180&deg; rotational symmetry when it comes to the placement of the initial clues. Such a symmetry is almost always found in my own sudokus as well. In addition, I tend to aim for the initial clues to be placed in a given pattern to make the sudoku more aesthetically pleasing. A few such patterns are outlined below, with the shaded cells representing the positions of the initial clues. You can click on a pattern to get the corresponding puzzle number, so that you can select and solve a sudoku with that particular pattern in the applet above. </p>
+
+<div style="text-align: center;">
+  <img class="sudokuPattern" id="pattern-rings" src="images/sudoku-rings.png" alt="Rings">
+  <img class="sudokuPattern" id="pattern-bubbles" src="images/sudoku-bubbles.png" alt="Bubbles">
+  <img class="sudokuPattern" id="pattern-squares" src="images/sudoku-squares.png" alt="Squares">
+  <img class="sudokuPattern" id="pattern-hearts" src="images/sudoku-hearts.png" alt="Hearts">
+  <img class="sudokuPattern" id="pattern-star" src="images/sudoku-star.png" alt="Star">
+  <br>
+  <img class="sudokuPattern" id="pattern-clover" src="images/sudoku-clover.png" alt="Clover">
+  <img class="sudokuPattern" id="pattern-spiral" src="images/sudoku-spiral.png" alt="Spiral">
+  <img class="sudokuPattern" id="pattern-atom" src="images/sudoku-atom.png" alt="Atom">
+  <img class="sudokuPattern" id="pattern-lines" src="images/sudoku-lines.png" alt="Lines">
+  <img class="sudokuPattern" id="pattern-sigma" src="images/sudoku-sigma.png" alt="Sigma">
+  <br>
+  <p id="patternNumberField">&nbsp;</p>
+</div>
+
+<h4>JavaScript files</h4>
+
+<p>
+The JavaScript applet embedded on this page was written primarily to display the sudoku puzzles that I have constructed, and therefore it does not have a functionality to generate entirely new puzzles. Included is also a basic sudoku solver, which was used to determine all the solutions. My initial plan of writing a more sophisticated solver (analyzing the board using different solving techniques and giving a score for the puzzle difficulty) is postponed for an indefinite amount of time. </p>
+
+<p>The JavaScript code can freely be reused and/or modified if you find it useful. Please note that this was basically my first project of writing JavaScript code, so I am sure that the code could be improved. </p>
+
+</div>
+
+
+<footer>
+Website &copy; David Stenlund. Photos &copy; Säde Stenlund. 
+</footer>
+
+<script>
+function myMenuList() {
+  const x = document.getElementById("myTopnav");
+  if (x.className === "topnav") {
+    x.className += " responsive";
+  } else {
+    x.className = "topnav";
+  }
+}
+
+// Click on one of the sudoku patterns
+document.addEventListener('click', function(e){   
+  const xfield = document.getElementById("patternNumberField");
+  if (e.target.classList.contains("sudokuPattern")){
+    let message = "Sudokus with this pattern: &nbsp;"
+    switch (e.target.id) {
+      case "pattern-rings": message += "54, 93"; break;
+      case "pattern-bubbles": message += "14, 114"; break;
+      case "pattern-squares": message += "78"; break;
+      case "pattern-hearts": message += "67, 107, 112"; break;
+      case "pattern-star": message += "103"; break;
+      case "pattern-clover": message += "55, 91"; break;
+      case "pattern-spiral": message += "66"; break;
+      case "pattern-atom": message += "83"; break;
+      case "pattern-lines": message += "40"; break;
+      case "pattern-sigma": message += "48"; break;
+      default: break;
+    }
+
+    const selectedCells = document.querySelectorAll(".selectedPattern");
+    for (let i = 0; i < selectedCells.length; i++) {
+      selectedCells[i].classList.remove("selectedPattern");
+    }
+    e.target.classList.add("selectedPattern");
+    xfield.innerHTML = message;
+    xfield.style.visibility = "visible";
+  } else {
+    const selectedCells = document.querySelectorAll(".selectedPattern");
+    for (let i = 0; i < selectedCells.length; i++) {
+      selectedCells[i].classList.remove("selectedPattern");
+    }
+    xfield.style.visibility = "hidden";
+  }
+});
+</script>
+<script src="sudoku/david-sudoku-library.js"></script>
+<script src="sudoku/david-sudoku-game.js"></script>  
+<script src="sudoku/david-sudoku-solver.js"></script> 
+
+
+</body>
+</html>
